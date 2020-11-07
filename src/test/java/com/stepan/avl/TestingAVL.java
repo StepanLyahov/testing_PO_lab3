@@ -158,4 +158,19 @@ public class TestingAVL {
         res = avl.get(1);
         assertEquals(res, 1);
     }
+
+    @Test
+    public void testMinAVL() {
+        AVL avl = new AVL();
+        avl.add(1, 1);
+        avl.add(2, 2);
+        avl.add(3, 3);
+        avl.add(4, 4);
+        avl.add(5, 5);
+        avl.add(6, 6);
+        avl.add(7, 7);
+
+        int res = avl.min(avl.root).value;
+        assertEquals(res, 1);
+    }
 }
