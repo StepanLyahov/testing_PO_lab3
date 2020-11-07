@@ -144,4 +144,51 @@ public class AVL {
         return min(nodeAVL.left);
     }
 
+    public Node delete(Node node, Integer key) {
+        if (node == null) return null;
+        int compareResult = key.compareTo(node.key);
+        if (compareResult > 0) {
+            node.right = delete(node.right, key);
+        } else if (compareResult < 0) {
+            node.left = delete(node.left, key);
+        } else {
+            if (node.right == null && node.left == null) {
+                node = null;
+            } else if (node.right == null) {
+                node.left.father = node.father;
+                node = node.left;
+            } else if (node.left == null) {
+                node.right.father = node.father;
+                node = node.right;
+            } else {
+                if (node.right.left == null) {
+                    node.right.left = node.left;
+                    node.right.father = node.father;
+                    node.right.father = node.father;
+                    node.left.father = node.right;
+                    node = node.right;
+                } else {
+                    Node res = min(node.right);
+                    node.key = res.key;
+                    node.value = res.value;
+                    delete(node.right, node.key);
+                }
+            }
+        }
+        if (node != null) {
+            node.h = height(node.left, node.right) + 1;
+            node.balance = balance(node.left, node.right);
+            if (node.balance == -2) {
+                node = leftRotation(node);
+            } else if (node.balance == 2) {
+                node = rightRotation(node);
+            }
+        }
+        return node;
+    }
+
+    // интерфейс
+    public void delete(Integer key) {
+        root = delete(root, key);
+    }
 }
