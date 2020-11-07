@@ -121,4 +121,22 @@ public class AVL {
     public void add(Integer key, Integer value) {
         root = add(root, key, value, null);
     }
+
+    public Integer get(Node nodeAVL, Integer key) {
+        if (nodeAVL == null) return null;
+        int compareResult = key.compareTo(nodeAVL.key);
+        if (compareResult == 0) {
+            return nodeAVL.value;
+        } else if (compareResult > 0) {
+            return get(nodeAVL.right, key);
+        } else {
+            return get(nodeAVL.left, key);
+        }
+    }
+
+    // интерфейс
+    public Integer get(Integer key) {
+        return get(root, key);
+    }
+
 }
