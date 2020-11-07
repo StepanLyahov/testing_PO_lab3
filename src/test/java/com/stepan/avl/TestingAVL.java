@@ -3,12 +3,9 @@ package com.stepan.avl;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 public class TestingAVL {
-
-    AVL avl = new AVL();
 
     @Test
     public void testConstructorNode() {
@@ -33,6 +30,8 @@ public class TestingAVL {
 
     @Test
     public void testHeightAVL() {
+        AVL avl = new AVL();
+
         Node node1 = new Node(1, 1, null);
         Node node2 = new Node(2, 2, null);
 
@@ -50,6 +49,8 @@ public class TestingAVL {
 
     @Test
     public void testBalanceAVL() {
+        AVL avl = new AVL();
+
         Node node1 = new Node(1, 1, null);
         Node node2 = new Node(2, 2, null);
 
@@ -65,4 +66,23 @@ public class TestingAVL {
         assertEquals(avl.balance(null, node2), -1);
     }
 
+    @Test
+    public void testJustAddAVL() {
+        AVL avl = new AVL();
+
+        Node root = avl.justAdd(null, 2,2, null);
+        assertNotNull(root);
+
+        root = avl.justAdd(root, 3,3, null);
+        assertEquals(root.right.key, 3);
+
+        root = avl.justAdd(root, 1,1, null);
+        assertEquals(root.left.key, 1);
+
+        root = avl.justAdd(root, 1,1, null);
+        assertEquals(root.left.key, 1);
+
+        root = avl.justAdd(root, 0,0, null);
+        assertEquals(root.left.left.key, 0);
+    }
 }
