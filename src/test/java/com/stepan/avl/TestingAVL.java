@@ -1,6 +1,8 @@
 package com.stepan.avl;
 
 
+import com.stepan.avl.impl.AVL;
+import com.stepan.avl.impl.Node;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

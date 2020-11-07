@@ -1,4 +1,4 @@
-package com.stepan.avl;
+package com.stepan.avl.impl;
 
 public class Node {
     public int h;

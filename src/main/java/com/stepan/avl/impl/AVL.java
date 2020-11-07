@@ -1,6 +1,8 @@
-package com.stepan.avl;
+package com.stepan.avl.impl;
 
-public class AVL {
+import com.stepan.avl.InterfaceAVL;
+
+public class AVL implements InterfaceAVL {
     public Node root;
 
     public int height(Node x, Node y) {
@@ -117,7 +119,7 @@ public class AVL {
         return node;
     }
 
-    //интерфейс
+    @Override
     public void add(Integer key, Integer value) {
         root = add(root, key, value, null);
     }
@@ -134,7 +136,7 @@ public class AVL {
         }
     }
 
-    // интерфейс
+    @Override
     public Integer get(Integer key) {
         return get(root, key);
     }
@@ -187,7 +189,7 @@ public class AVL {
         return node;
     }
 
-    // интерфейс
+    @Override
     public void delete(Integer key) {
         root = delete(root, key);
     }
