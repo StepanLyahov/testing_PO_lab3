@@ -48,4 +48,21 @@ public class TestingAVL {
         assertEquals(avl.height(null, node2), 1);
     }
 
+    @Test
+    public void testBalanceAVL() {
+        Node node1 = new Node(1, 1, null);
+        Node node2 = new Node(2, 2, null);
+
+        assertEquals(avl.balance(node1, node2), 0);
+
+        node1.h = 3;
+        assertEquals(avl.balance(node1, node2), 2);
+
+        assertEquals(avl.balance(null, null), 0);
+
+        assertEquals(avl.balance(node1, null), 3);
+
+        assertEquals(avl.balance(null, node2), -1);
+    }
+
 }
