@@ -17,24 +17,6 @@ public class AVL {
         else return x.h - y.h;
     }
 
-    public Node justAdd(Node node, Integer key, Integer value, Node father) {
-        if (node == null) {
-            Node newnode = new Node(key, value, father);
-            return newnode;
-        }
-        int compareResult = key.compareTo(node.key);
-        if (compareResult > 0) {
-            node.right = justAdd(node.right, key, value, node);
-            node.h = height(node.left, node.right) + 1;
-        } else if (compareResult < 0) {
-            node.left = justAdd(node.left, key, value, node);
-            node.h = height(node.left, node.right) + 1;
-        } else {
-            node.value = value;
-        }
-        return node;
-    }
-
     public Node leftRotation(Node node) {
         if (node.right.right == null && node.right.left != null) {
             node.right = rightRotation(node.right);
@@ -81,5 +63,44 @@ public class AVL {
             nodeAVL = rightRotation(nodeAVL);
         }
         return nodeAVL;
+    }
+
+    public Node balancing(Node node) {
+        node.balance = balance(node.left, node.right);
+        if (node.balance == -2) {
+            node = leftRotation(node);
+        } else if (node.balance == 2) {
+            node = rightRotation(node);
+        }
+        return node;
+    }
+
+    public Node justAdd(Node node, Integer key, Integer value, Node father) {
+        if (node == null) {
+            Node newnode = new Node(key, value, father);
+            return newnode;
+        }
+        int compareResult = key.compareTo(node.key);
+        if (compareResult > 0) {
+            node.right = justAdd(node.right, key, value, node);
+            node.h = height(node.left, node.right) + 1;
+        } else if (compareResult < 0) {
+            node.left = justAdd(node.left, key, value, node);
+            node.h = height(node.left, node.right) + 1;
+        } else {
+            node.value = value;
+        }
+        return node;
+    }
+
+    public Node add(Node node, Integer key, Integer value, Node father) {
+        node = justAdd(node, key, value, father);
+        node = balancing(node);
+        return node;
+    }
+
+    //интерфейс
+    public void add(Integer key, Integer value) {
+        root = add(root, key, value, null);
     }
 }
