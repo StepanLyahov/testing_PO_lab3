@@ -8,6 +8,8 @@ import static org.junit.Assert.assertNull;
 
 public class TestingAVL {
 
+    AVL avl = new AVL();
+
     @Test
     public void testConstructorNode() {
         Node node = new Node(1, 1, null);
@@ -27,6 +29,23 @@ public class TestingAVL {
         assertNull(left);
         assertNull(right);
         assertNull(father);
+    }
+
+    @Test
+    public void testHeightAVL() {
+        Node node1 = new Node(1, 1, null);
+        Node node2 = new Node(2, 2, null);
+
+        assertEquals(avl.height(node1, node2), 1);
+
+        node1.h = 3;
+        assertEquals(avl.height(node1, node2), 3);
+
+        assertEquals(avl.height(null, null), 0);
+
+        assertEquals(avl.height(node1, null), 3);
+
+        assertEquals(avl.height(null, node2), 1);
     }
 
 }
