@@ -70,19 +70,50 @@ public class TestingAVL {
     public void testJustAddAVL() {
         AVL avl = new AVL();
 
-        Node root = avl.justAdd(null, 2,2, null);
+        Node root = avl.justAdd(null, 2, 2, null);
         assertNotNull(root);
 
-        root = avl.justAdd(root, 3,3, null);
+        root = avl.justAdd(root, 3, 3, null);
         assertEquals(root.right.key, 3);
 
-        root = avl.justAdd(root, 1,1, null);
+        root = avl.justAdd(root, 1, 1, null);
         assertEquals(root.left.key, 1);
 
-        root = avl.justAdd(root, 1,1, null);
+        root = avl.justAdd(root, 1, 1, null);
         assertEquals(root.left.key, 1);
 
-        root = avl.justAdd(root, 0,0, null);
+        root = avl.justAdd(root, 0, 0, null);
         assertEquals(root.left.left.key, 0);
     }
+
+    @Test
+    public void testLeftRotationAVL() {
+        AVL avl = new AVL();
+
+        Node root = avl.justAdd(null, 1, 1, null);
+        root = avl.justAdd(root, 2, 2, null);
+        root = avl.justAdd(root, 3, 3, null);
+
+        root = avl.leftRotation(root);
+
+        assertEquals(root.key, 2);
+        assertEquals(root.left.key, 1);
+        assertEquals(root.right.key, 3);
+    }
+
+    @Test
+    public void testRightRotationAVL() {
+        AVL avl = new AVL();
+
+        Node root = avl.justAdd(null, 3, 3, null);
+        root = avl.justAdd(root, 2, 2, null);
+        root = avl.justAdd(root, 1, 1, null);
+
+        root = avl.rightRotation(root);
+
+        assertEquals(root.key, 2);
+        assertEquals(root.left.key, 1);
+        assertEquals(root.right.key, 3);
+    }
+
 }
