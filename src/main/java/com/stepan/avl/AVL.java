@@ -94,8 +94,26 @@ public class AVL {
     }
 
     public Node add(Node node, Integer key, Integer value, Node father) {
-        node = justAdd(node, key, value, father);
-        node = balancing(node);
+        if (node == null) {
+            Node newnode = new Node(key, value, father);
+            return newnode;
+        }
+        int compareResult = key.compareTo(node.key);
+        if (compareResult > 0) {
+            node.right = add(node.right, key, value, node);
+            node.h = height(node.left, node.right) + 1;
+        } else if (compareResult < 0) {
+            node.left = add(node.left, key, value, node);
+            node.h = height(node.left, node.right) + 1;
+        } else {
+            node.value = value;
+        }
+        node.balance = balance(node.left, node.right);
+        if (node.balance == -2) {
+            node = leftRotation(node);
+        } else if (node.balance == 2) {
+            node = rightRotation(node);
+        }
         return node;
     }
 
