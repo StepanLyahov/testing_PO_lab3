@@ -34,4 +34,52 @@ public class AVL {
         }
         return node;
     }
+
+    public Node leftRotation(Node node) {
+        if (node.right.right == null && node.right.left != null) {
+            node.right = rightRotation(node.right);
+            node = leftRotation(node);
+        } else if (node.right.left == null || node.right.left.h <= node.right.right.h) {
+            Node newnode = node.right;
+            newnode.father = node.father;
+            node.right = newnode.left;
+            if (node.right != null)
+                node.right.father = node;
+            node.h = height(node.left, node.right) + 1;
+            node.father = newnode;
+            node.balance = balance(node.left, node.right);
+            newnode.left = node;
+            node = newnode;
+            node.balance = balance(node.left, node.right);
+            node.h = height(node.left, node.right) + 1;
+        } else {
+            node.right = rightRotation(node.right);
+            node = leftRotation(node);
+        }
+        return node;
+    }
+
+    public Node rightRotation(Node nodeAVL) {
+        if (nodeAVL.left.right != null && nodeAVL.left.left == null) {
+            nodeAVL.left = leftRotation(nodeAVL.left);
+            nodeAVL = rightRotation(nodeAVL);
+        } else if (nodeAVL.left.right == null || nodeAVL.left.right.h <= nodeAVL.left.left.h) {
+            Node newnode = nodeAVL.left;
+            newnode.father = nodeAVL.father;
+            nodeAVL.left = newnode.right;
+            if (nodeAVL.left != null)
+                nodeAVL.left.father = nodeAVL;
+            nodeAVL.h = height(nodeAVL.left, nodeAVL.right) + 1;
+            nodeAVL.father = newnode;
+            nodeAVL.balance = balance(nodeAVL.left, nodeAVL.right);
+            newnode.right = nodeAVL;
+            nodeAVL = newnode;
+            nodeAVL.balance = balance(nodeAVL.left, nodeAVL.right);
+            nodeAVL.h = height(nodeAVL.left, nodeAVL.right) + 1;
+        } else {
+            nodeAVL.left = leftRotation(nodeAVL.left);
+            nodeAVL = rightRotation(nodeAVL);
+        }
+        return nodeAVL;
+    }
 }
