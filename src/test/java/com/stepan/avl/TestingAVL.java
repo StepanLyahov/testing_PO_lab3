@@ -116,4 +116,28 @@ public class TestingAVL {
         assertEquals(root.right.key, 3);
     }
 
+    @Test
+    public void testAddAPIAVL() {
+        AVL avl = new AVL();
+        avl.add(1, 1);
+        avl.add(2, 2);
+        avl.add(3, 3);
+        avl.add(4, 4);
+        avl.add(5, 5);
+        avl.add(6, 6);
+        avl.add(7, 7);
+
+        Node node = avl.root;
+        assertEquals(node.key, 4);
+
+        Node leftRoot = node.left;
+        assertEquals(leftRoot.key, 2);
+        assertEquals(leftRoot.left.key, 1);
+        assertEquals(leftRoot.right.key, 3);
+
+        Node rightRoot = node.right;
+        assertEquals(rightRoot.key, 6);
+        assertEquals(rightRoot.left.key, 5);
+        assertEquals(rightRoot.right.key, 7);
+    }
 }
