@@ -139,4 +139,9 @@ public class AVL {
         return get(root, key);
     }
 
+    public Node min(Node nodeAVL) {
+        if (nodeAVL.left == null) return nodeAVL;
+        return min(nodeAVL.left);
+    }
+
 }
